@@ -1,7 +1,6 @@
 import os
 
-from flask import Flask, request, jsonify
-from flask import Flask, redirect, render_template, request
+from flask import Flask, jsonify, request
 from PIL import Image
 import torchvision.transforms.functional as TF
 import CNN
@@ -15,11 +14,10 @@ app = Flask(__name__)
 
 DEFAULT_HEADERS = {"Content-Type": "application/json"}
 
-disease_info = pd.read_csv('disease_info.csv' , encoding='cp1252')
-supplement_info = pd.read_csv('supplement_info.csv',encoding='cp1252')
+disease_info = pd.read_csv('./feed/info/disease_info.csv' , encoding='cp1252')
 
 model = CNN.CNN(39)
-model.load_state_dict(torch.load("plant_disease_model_1_latest.pt"))
+model.load_state_dict(torch.load("./feed/plant_disease_model_1_latest.pt", map_location=torch.device('cpu')))
 model.eval()
 
 
@@ -47,14 +45,14 @@ def health_check():
 def predict_disease():
     sector = request.get_json()['sector']
 
-    image = request.files['image']
-    image_path = 'image_feed/sector_'+str(sector)+'.jpg'
+    image_path = './feed/image_feed/sector_'+str(sector)+'.JPG'
     pred = prediction(image_path)
 
     payload = {
-        "message": str(pred),
-        "status": "success",
         "sector": str(sector),
+        "condition": disease_info['disease_name'][pred],
+        "possible-recommendations": disease_info['Possible Steps'][pred],
+        "status": "success",
     }
     return jsonify(payload), 200, DEFAULT_HEADERS
 
