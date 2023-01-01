@@ -5,10 +5,10 @@ metadata:
   labels:
     type: local
 spec:
-  storageClassName: log-data
+  storageClassName: feed-data
   capacity:
     storage: 100Mi
   accessModes:
     - ReadWriteMany
   hostPath:
-    path: "/k3s-volumes/agri-app"
+    path: "/Users/dhaurapathirana/agri"

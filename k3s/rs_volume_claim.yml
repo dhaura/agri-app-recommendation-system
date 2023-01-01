@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: rs-volume-claim
 spec:
-  storageClassName: log-data
+  storageClassName: feed-data
   accessModes:
     - ReadWriteMany
   resources:
