@@ -26,11 +26,11 @@ spec:
           - configMapRef:
               name: envs-config
         resources: {}
-        volumeMounts:
-          - mountPath: "/feed"
-            name: rs-volume
-      volumes:
-        - name: rs-volume
-          persistentVolumeClaim:
-            claimName: rs-volume-claim
+#        volumeMounts:
+#          - mountPath: "/feed"
+#            name: rs-volume
+#      volumes:
+#        - name: rs-volume
+#          persistentVolumeClaim:
+#            claimName: rs-volume-claim
 status: {}

@@ -1,20 +1,10 @@
-FROM python:3.7
-WORKDIR /master
-
-RUN apt update && apt install -y libatlas-base-dev && rm -rf /var/lib/apt/lists/*
-
-RUN python -m pip install --upgrade pip
-
-COPY /wheels ./wheels
-RUN pip install --extra-index-url https://www.piwheels.org/simple ./wheels/torch-1.7.0a0-cp37-cp37m-linux_armv7l.whl
-RUN pip install --extra-index-url https://www.piwheels.org/simple ./wheels/torchvision-0.8.0a0+45f960c-cp37-cp37m-linux_armv7l.whl
-
-COPY requirements.txt .
-RUN pip install --extra-index-url https://www.piwheels.org/simple -r requirements.txt
+FROM dhaura/agri-app-rs-base:latest
 
 COPY microservice_rs.py .
 COPY config.py .
 COPY CNN.py .
+
+COPY /feed ./feed
 
 EXPOSE 8001
 
