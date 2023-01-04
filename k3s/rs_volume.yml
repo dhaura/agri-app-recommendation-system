@@ -7,8 +7,8 @@ metadata:
 spec:
   storageClassName: feed-data
   capacity:
-    storage: 100Mi
+    storage: 500Mi
   accessModes:
     - ReadWriteMany
   hostPath:
-    path: "/Users/dhaurapathirana/agri"
+    path: "/k3s-volumes/agri"

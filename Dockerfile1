@@ -1,0 +1,17 @@
+FROM python:3.9
+WORKDIR /master
+
+RUN python -m pip install --upgrade pip
+
+COPY requirements1.txt .
+RUN pip install -r requirements1.txt
+
+COPY microservice_rs.py .
+COPY config.py .
+COPY CNN.py .
+
+COPY /feed ./feed
+
+EXPOSE 8001
+
+ENTRYPOINT ["python", "./microservice_rs.py"]
