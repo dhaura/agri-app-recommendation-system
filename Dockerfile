@@ -1,6 +1,8 @@
 FROM python:3.7
 WORKDIR /master
 
+RUN apt update && apt install -y libatlas-base-dev && rm -rf /var/lib/apt/lists/*
+
 RUN python -m pip install --upgrade pip
 
 COPY /wheels ./wheels
@@ -9,7 +11,6 @@ RUN pip install --extra-index-url https://www.piwheels.org/simple ./wheels/torch
 
 COPY requirements.txt .
 RUN pip install --extra-index-url https://www.piwheels.org/simple -r requirements.txt
-
 
 COPY microservice_rs.py .
 COPY config.py .
