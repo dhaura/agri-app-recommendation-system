@@ -14,10 +14,10 @@ app = Flask(__name__)
 
 DEFAULT_HEADERS = {"Content-Type": "application/json"}
 
-disease_info = pd.read_csv('./feed/info/disease_info.csv' , encoding='cp1252')
+disease_info = pd.read_csv('./feed/info/disease_info.csv', encoding='cp1252')
 
 model = CNN.CNN(39)
-model.load_state_dict(torch.load("./feed/plant_disease_model_1_latest.pt", map_location=torch.device('cpu')))
+model.load_state_dict(torch.load("./feed/plant_disease_model_latest.pt", map_location=torch.device('cpu')))
 model.eval()
 
 

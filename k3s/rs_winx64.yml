@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: agri-app-rs
+  name: agri-app-rs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: agri-app-rs
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: agri-app-rs
+    spec:
+      containers:
+      - args:
+        - agri_app_rs
+        image: dhaura/agri-app-rs:latest-x64
+        name: rs
+        ports:
+        - containerPort: 8001
+        envFrom:
+          - configMapRef:
+              name: envs-config
+        resources: {}
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: agri-app-rs
+  name: svc-agri-app-rs
+spec:
+  ports:
+  - port: 8001
+    protocol: TCP
+    targetPort: 8001
+  selector:
+    app: agri-app-rs
+  type: ClusterIP
+status:
+  loadBalancer: {}
