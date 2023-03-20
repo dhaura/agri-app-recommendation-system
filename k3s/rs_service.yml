@@ -12,6 +12,3 @@ spec:
     targetPort: 8001
   selector:
     app: agri-app-rs
-  type: ClusterIP
-status:
-  loadBalancer: {}
